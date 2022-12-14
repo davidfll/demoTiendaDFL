@@ -1,6 +1,6 @@
 package com.dfl.demoTienda.service.api;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.dfl.demoTienda.dto.PriceDTO;
 import com.dfl.demoTienda.model.Price;
@@ -18,7 +18,7 @@ public interface PriceService {
 	 * @param brandId el identificador de la marca
 	 * @return el precio
 	 */
-	PriceDTO obtenerTarifa (Date fecha, Long idProducto, Long brandId);
+	PriceDTO obtenerTarifa (LocalDateTime fecha, Long idProducto, Long brandId);
 
 	/**
 	 * Método para el guardado del precio.

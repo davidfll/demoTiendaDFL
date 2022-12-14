@@ -1,10 +1,9 @@
 package com.dfl.demoTienda.service.impl;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -13,19 +12,20 @@ import com.dfl.demoTienda.model.Price;
 import com.dfl.demoTienda.repository.PriceRepository;
 import com.dfl.demoTienda.service.api.PriceService;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Implementación del servicio de precios.
  */
 @Service
+@RequiredArgsConstructor
 public class PriceServiceImpl implements PriceService {
 	
-	/** Inyección del repository de precios. */
-	@Autowired
-	private PriceRepository priceRepository;
+	/** Inyección del repository de precios (por constructor). */
+	private final PriceRepository priceRepository;
 	
-	/** Inyección del model mapper para la conversión entity-dto. */
-	@Autowired
-	private ModelMapper modelMapper;
+	/** Inyección del model mapper para la conversión entity-dto (por constructor). */
+	private final ModelMapper modelMapper;
 
 	/**
 	 * Obtención de la tarifa a aplicar a un producto de una marca en un momento dado.
@@ -36,7 +36,7 @@ public class PriceServiceImpl implements PriceService {
 	 * @return el precio
 	 */
 	@Override
-	public PriceDTO obtenerTarifa(Date fecha, Long productId, Long brandId) {
+	public PriceDTO obtenerTarifa(LocalDateTime fecha, Long productId, Long brandId) {
 		PriceDTO precioAAplicar = null;
 		final List<Price> listaPreciosAplicables = priceRepository.findByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(fecha, fecha, productId, brandId);
 		if(!CollectionUtils.isEmpty(listaPreciosAplicables)) {

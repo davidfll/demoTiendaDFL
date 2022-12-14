@@ -33,7 +33,10 @@ public class RestDemoControllerExceptionHandler {
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ErrorResponse fechaIncorrectaException(ParseException ex, WebRequest request) {
 		LOG.error("Se produjo un error en la conversión del parámetro fecha", ex);
-		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Formato de fecha incorrecto. Debe indicar el siguiente formato: " + DateUtils.FORMATO_FECHA_COMPLETA);
+		return ErrorResponse.builder()
+				.status(HttpStatus.BAD_REQUEST.value())
+				.message("Formato de fecha incorrecto. Debe indicar el siguiente formato: " + DateUtils.FORMATO_FECHA_COMPLETA)
+				.build();
 	}
 
 
@@ -48,7 +51,10 @@ public class RestDemoControllerExceptionHandler {
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ErrorResponse parametrosIncorrectosException(MissingServletRequestParameterException ex, WebRequest request) {
 		LOG.error("Parámetros incorrectos en la petición", ex);
-		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Parámetros incorrectos. Debe indicar la fecha, identificador de producto (productId) e identificador de marca (brandId)");
+		return ErrorResponse.builder()
+				.status(HttpStatus.BAD_REQUEST.value())
+				.message("Parámetros incorrectos. Debe indicar la fecha, identificador de producto (productId) e identificador de marca (brandId)")
+				.build();
 	}
 
 }
