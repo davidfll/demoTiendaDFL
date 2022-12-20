@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,15 +12,17 @@ import com.dfl.demoTienda.model.Price;
 import com.dfl.demoTienda.repository.PriceRepository;
 import com.dfl.demoTienda.util.DateUtils;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Clase Configuration para la demo para la definición de beans.
  */
 @Configuration
+@RequiredArgsConstructor
 public class DemoTiendaConfiguration {
 
 	/** Inyección del repository de precios. */
-	@Autowired
-	PriceRepository priceRepository;
+	private final PriceRepository priceRepository;
 	
 	private static final String CURR_EURO = "EUR";
 
