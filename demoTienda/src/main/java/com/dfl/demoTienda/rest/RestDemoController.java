@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +34,7 @@ public class RestDemoController {
 	 * @param brandId el identificador de marca
 	 * @return el precio a aplicar para la fecha, id de producto e id de marca
 	 */
-	@PostMapping("/obtenerTarifa")
+	@GetMapping("/obtenerTarifa")
 	public ResponseEntity<PriceDTO> obtenerTarifa(
 			@RequestParam(name = "fecha", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd-HH.mm.ss") LocalDateTime fecha,
 			@RequestParam(name = "productId", required = true) Long productId,
@@ -42,7 +42,7 @@ public class RestDemoController {
 
 		return Optional.ofNullable(priceService.obtenerTarifa(fecha, productId, brandId))
 				.map(price -> ResponseEntity.ok().body(price)) // 200 OK
-				.orElseGet(() -> ResponseEntity.noContent().build()); // 204 Petición con éxito sin contenido
+				.orElseGet(() -> ResponseEntity.notFound().build()); // 404 No encontrado
 
 	}
 

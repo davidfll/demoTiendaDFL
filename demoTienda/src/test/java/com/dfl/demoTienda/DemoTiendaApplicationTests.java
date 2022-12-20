@@ -150,7 +150,7 @@ class DemoTiendaApplicationTests {
 	void testBusquedaTarifaNoEncontradaPorFecha() throws ParseException {
 		//Para la fecha indicada no existe ninguna tarifa para el producto
 		final ResponseEntity<PriceDTO> responseEntity = restDemoController.obtenerTarifa(DateUtils.toDate("2021-06-16-21.00.00", DateUtils.FORMATO_FECHA_COMPLETA), 35455L, 1L);
-		assertTrue(responseEntity.getStatusCodeValue() == 204, "No se ha obtenido el código de respuesta esperado (204)");
+		assertTrue(responseEntity.getStatusCodeValue() == 404, "No se ha obtenido el código de respuesta esperado (404)");
 	}
 	
 	/**
@@ -162,7 +162,7 @@ class DemoTiendaApplicationTests {
 	void testBusquedaTarifaNoEncontradoPorProducto() throws ParseException {
 		//Aunque para la fecha indicada existan tarifas, no corresponden con el producto indicado
 		final ResponseEntity<PriceDTO> responseEntity = restDemoController.obtenerTarifa(DateUtils.toDate("2020-06-16-21.00.00", DateUtils.FORMATO_FECHA_COMPLETA), 35456L, 1L);
-		assertTrue(responseEntity.getStatusCodeValue() == 204, "No se ha obtenido el código de respuesta esperado (204)");
+		assertTrue(responseEntity.getStatusCodeValue() == 404, "No se ha obtenido el código de respuesta esperado (404)");
 	}
 
 	
